@@ -2,7 +2,17 @@ var calendarEl = document.getElementById("calendar");
 var currentDayEl = document.getElementById("currentDay");
 var taskInfoArray = [];
 //line of code is to retrieve item from local storage.
-var storedTaskInfoArray = JSON.parse(localStorage.getItem("calendarEvents"));
+
+const populateInfo = () => {
+  var storedTaskInfoArray = JSON.parse(localStorage.getItem("calendarEvents"));
+  if (storedTaskInfoArray) {
+    taskInfoArray = storedTaskInfoArray;
+    for (i = 0; i < taskInfoArray.length; i++) {
+      var inputEl = document.getElementById(`hourInput${i}`);
+      inputEl.value = taskInfoArray[i];
+    }
+  }
+};
 
 //JSON.parse takes our string in local storage from
 // a string '['','','','Coding Hello World,'','']' to an array ['','','','Coding Hello World,'','']
@@ -68,6 +78,10 @@ const storeEvents = () => {
 // getItem retrieves the item from localStorage
 
 //use bootstrap to change the color of the hour elements if that time is in the past, present, or future
+const loadPage = () => {
+  setCurrentDay();
+  generateHours();
+  populateInfo();
+};
 
-setCurrentDay();
-generateHours();
+loadPage();
