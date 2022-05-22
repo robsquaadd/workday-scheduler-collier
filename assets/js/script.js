@@ -66,9 +66,10 @@ const relativeTime = () => {
   for (i = 0; i < inputElArray.length; i++) {
     var inputElementId = inputElArray[i].getAttribute("id");
     var inputElementHour = inputElementId.replace("hourInput", "");
-    if (currentHour > inputElementHour) {
+    var hourInteger = parseInt(inputElementHour);
+    if (currentHour > hourInteger + 9) {
       $(inputElArray[i]).addClass("past");
-    } else if (currentHour == inputElementHour) {
+    } else if (currentHour == hourInteger + 9) {
       $(inputElArray[i]).addClass("present");
     } else {
       $(inputElArray[i]).addClass("future");
@@ -79,8 +80,8 @@ const relativeTime = () => {
 const loadPage = () => {
   setCurrentDay();
   generateHours();
-  populateInfo();
   relativeTime();
+  populateInfo();
 };
 
 loadPage();
