@@ -1,6 +1,18 @@
 var calendarEl = document.getElementById("calendar");
 var currentDayEl = document.getElementById("currentDay");
 var taskInfoArray = [];
+var clearButtonEl = document.getElementById("clear-button");
+
+const clearSchedule = () => {
+  var confirmClear = confirm("Are you sure that you want to clear all events?");
+  if (confirmClear) {
+    localStorage.removeItem("calendarEvents");
+    var inputElArray = document.querySelectorAll(".eventInput");
+    for (i = 0; i < inputElArray.length; i++) {
+      inputElArray[i].value = "";
+    }
+  }
+};
 
 const populateInfo = () => {
   var storedTaskInfoArray = JSON.parse(localStorage.getItem("calendarEvents"));
@@ -85,3 +97,4 @@ const loadPage = () => {
 };
 
 loadPage();
+clearButtonEl.addEventListener("click", clearSchedule);
